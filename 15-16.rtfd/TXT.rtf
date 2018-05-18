@@ -1,0 +1,211 @@
+{\rtf1\ansi\ansicpg936\cocoartf1561\cocoasubrtf400
+{\fonttbl\f0\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0\fs24 \cf2 \expnd0\expndtw0\kerning0
+A1 a) \
+Make defensive copies when needed (Bloch-EJ Item 39) \
+\'95 Make defensive copies of each mutable parameter to a constructor or to any mutator method (such as a set method) \
+\'96Perform defensive copying before checking validity \
+\'96Do not use clone to make a defensive copy of a parameter whose type can be sub-classed by untrusted parties \
+\'95 For get methods, return defensive copies of mutable internal fields \
+\
+A1 b) \
+A class is immutable if its instances cannot be modified \
+\'96 The state of each instance of an immutable is fixed at instantiation \'96java.lang.String is an immutable class \'96java.util.Date is not immutable (but should be!) \
+\
+advantages: \
+Immutables are simple and safe and make good building blocks \
+\'95 An immutable is only ever in exactly one state \
+\'95 Immutables are thread-safe \
+\'95 Immutables can be cached \
+\'95 There is no need to defensively copy or clone an immutable \
+\'95 Mutable classes built on a foundation of immutable components are easier to maintain \
+\'95 Safe as set elements or map keys (see Part 1.4) \
+\'95 So: minimize mutability (Bloch-EJ Item 15) \
+\
+A2 c)i) \
+Final class- one that you can not inhert from \
+Final fields- once initialized can not be changed \
+\
+A2 c)ii) \
+Author has set methods \
+Book does not defensively copy \
+\
+A2 c)iii) \
+public Book(Author author,String title,Date datePublished)\{ \
+this.author = new Author(author.getFistName,author.getLastName); \
+this.title = title; \
+this.datePublished = new Date(datePublished.getTime()); \
+\} \
+public Author getAuthor()\{ \
+return new Author(author.getFirstName,author.getLastName); \
+\} \
+public String getTitle()\{ \
+return title; \
+\} \
+public Date getDatePublished()\{ \
+return (Date)datePublished.clone(); \
+\} \
+\
+A2 a) \
+public static Account getInstance(String acc,int accNum) \
+\
+A2 b) \
+Advantages compared to constructors: \
+1. Static factory methods can have more meaningful names \
+2. Static factory methods are not required to create a new object each time they are invoked \
+\'96 Instances can be cached, can enforce other constraints \
+3. Static factory methods can return an object of any subtype of their return type \
+\'96 The return type of an instantiated object can be restricted to its interface \
+\'96 Implementation can be hidden and changed at run-time \
+\'96 Service provider frameworks can be extended with new implementations (see Java Cryptography libraries) \
+\
+A2 c)i) \
+because modulecode is final->there will only ever be one implementation \
+\
+A2 c)ii) \
+1prefix should be non-null and not empty (length>0), can specify length=3 \
+2throw null pointerexception if prefix is null. throw illegalArgument if prefix is empty or does not comply with specified length(can throw nullpointerexception as side effort of checking not empty) \
+3number should be>0(can also specify should be exactly 4 digits - in range of 1000to 9999 - for newcastle codes) throw illegalArgumentException if not in \
+\
+A2 c)iii) \
+public final class ModuleCodes\{ \
+private final String prefix; \
+private final int number; \
+private static final Map<String,ModuleCode> CODES = HashMap<String,ModuleCode>(); \
+\'a0\'a0private ModuleCode(String prefix,int number)\{ \
+\'a0\'a0this.prefix = prefix; \
+\'a0\'a0this.number = number; \
+\'a0\'a0\} \
+public static ModuleCode getInstance(String prefix,int number)\{ \
+\'a0\'a0final String code = prefix*number; \
+\'a0\'a0if(!CODES.containsKey(key))\{ \
+\'a0\'a0CODES.put(code, new ModuleCode(prefix,number)); \
+\'a0\'a0return CODES.get(code); \
+\'a0\'a0\} \
+\} \
+public String getPrefix()\{ \
+return prefix; \
+\} \
+public int getNumber()\{ \
+return number; \
+\} \
+\} \
+\
+A2 c)iV) \
+\
+A3 a) \
+A1 a) \
+Make defensive copies when needed (Bloch-EJ Item 39) \
+\'95 Make defensive copies of each mutable parameter to a constructor or to any mutator method (such as a set method) \
+\'96Perform defensive copying before checking validity \
+\'96Do not use clone to make a defensive copy of a parameter whose type can be sub-classed by untrusted parties \
+\'95 For get methods, return defensive copies of mutable internal fields \
+\
+A1 b) \
+A class is immutable if its instances cannot be modified \
+\'96 The state of each instance of an immutable is fixed at instantiation \'96java.lang.String is an immutable class \'96java.util.Date is not immutable (but should be!) \
+\
+advantages: \
+Immutables are simple and safe and make good building blocks \
+\'95 An immutable is only ever in exactly one state \
+\'95 Immutables are thread-safe \
+\'95 Immutables can be cached \
+\'95 There is no need to defensively copy or clone an immutable \
+\'95 Mutable classes built on a foundation of immutable components are easier to maintain \
+\'95 Safe as set elements or map keys (see Part 1.4) \
+\'95 So: minimize mutability (Bloch-EJ Item 15) \
+\
+A2 c)i) \
+Final class- one that you can not inhert from \
+Final fields- once initialized can not be changed \
+\
+A2 c)ii) \
+Author has set methods \
+Book does not defensively copy \
+\
+A2 c)iii) \
+public Book(Author author,String title,Date datePublished)\{ \
+this.author = new Author(author.getFistName,author.getLastName); \
+this.title = title; \
+this.datePublished = new Date(datePublished.getTime()); \
+\} \
+public Author getAuthor()\{ \
+return new Author(author.getFirstName,author.getLastName); \
+\} \
+public String getTitle()\{ \
+return title; \
+\} \
+public Date getDatePublished()\{ \
+return (Date)datePublished.clone(); \
+\} \
+\
+A2 a) \
+public static Account getInstance(String acc,int accNum) \
+\
+A2 b) \
+Advantages compared to constructors: \
+1. Static factory methods can have more meaningful names \
+2. Static factory methods are not required to create a new object each time they are invoked \
+\'96 Instances can be cached, can enforce other constraints \
+3. Static factory methods can return an object of any subtype of their return type \
+\'96 The return type of an instantiated object can be restricted to its interface \
+\'96 Implementation can be hidden and changed at run-time \
+\'96 Service provider frameworks can be extended with new implementations (see Java Cryptography libraries) \
+\
+A2 c)i) \
+because modulecode is final->there will only ever be one implementation \
+\
+A2 c)ii) \
+1prefix should be non-null and not empty (length>0), can specify length=3 \
+2throw null pointerexception if prefix is null. throw illegalArgument if prefix is empty or does not comply with specified length(can throw nullpointerexception as side effort of checking not empty) \
+3number should be>0(can also specify should be exactly 4 digits - in range of 1000to 9999 - for newcastle codes) throw illegalArgumentException if not in \
+\
+A2 c)iii) \
+public final class ModuleCodes\{ \
+private final String prefix; \
+private final int number; \
+private static final Map<String,ModuleCode> CODES = HashMap<String,ModuleCode>(); \
+\'a0\'a0private ModuleCode(String prefix,int number)\{ \
+\'a0\'a0this.prefix = prefix; \
+\'a0\'a0this.number = number; \
+\'a0\'a0\} \
+public static ModuleCode getInstance(String prefix,int number)\{ \
+\'a0\'a0final String code = prefix*number; \
+\'a0\'a0if(!CODES.containsKey(key))\{ \
+\'a0\'a0CODES.put(code, new ModuleCode(prefix,number)); \
+\'a0\'a0return CODES.get(code); \
+\'a0\'a0\} \
+\} \
+public String getPrefix()\{ \
+return prefix; \
+\} \
+public int getNumber()\{ \
+return number; \
+\} \
+\} \
+\
+A2 c)iV) \
+\
+A3 a) \
+{{\NeXTGraphic 未知.png \width12820 \height7980 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}�}\
+\
+A3 b) \
+\
+\'a0\'a0 \'a0{{\NeXTGraphic 1__#$!@%!#__未知.png \width12300 \height8760 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}�} \
+{{\NeXTGraphic 2__#$!@%!#__未知.png \width12940 \height8200 \appleattachmentpadding0 \appleembedtype0 \appleaqc
+}�}\
+\
+A3 c) \
+NO \
+\
+A3 d) \
+\
+}
